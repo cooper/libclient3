@@ -1,7 +1,14 @@
 package libclient3
 
-var PMEvents map[string]func(map[string]interface{})
+var PMEvents map[string]func(*PMService, map[string]interface{})
 
 func CreatePMEvents() {
-	PMEvents = make(map[string]func(map[string]interface{}))
+	PMEvents = map[string]func(*PMService, map[string]interface{}){
+		"ping": pingHandler,
+	}
+}
+
+// keep the connection alive.
+func pingHandler(pm *PMService, _ map[string]interface{}) {
+	pm.connection.Send("pong", nil)
 }
