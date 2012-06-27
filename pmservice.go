@@ -3,7 +3,6 @@ package libclient3
 // this struct pointer implements Service.
 type PMService struct {
 	connection *Connection
-
 }
 
 // connects to the ProcessManager service.
