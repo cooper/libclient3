@@ -24,6 +24,9 @@ func RunPM(data map[string]interface{}) error {
 	if err != nil {
 		return err
 	}
+	if PMEvents == nil {
+		CreatePMEvents()
+	}
 	pm.Register(data)
 	pm.Loop()
 	return nil

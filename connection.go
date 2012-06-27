@@ -45,6 +45,9 @@ func Connect(path string) (conn *Connection, err error) {
 
 // send a JSON event
 func (conn *Connection) Send(command string, params map[string]interface{}) bool {
+	if params == nil {
+		params = make(map[string]interface{})
+	}
 	b, err := json.Marshal([]interface{}{command, params})
 	if err != nil {
 		return false
@@ -78,8 +81,19 @@ func (conn *Connection) handleEvent(data []byte) bool {
 	// should be an array.
 	c := i.([]interface{})
 
-	command := c[0].(string)
-	params := c[1].(map[string]interface{})
+	var (
+		command string
+		params map[string]interface{}
+	)
+
+	switch c[0].(type) {
+		case string:
+			command = c[0].(string)
+	}
+	switch c[1].(type) {
+		case map[string]interface{}:
+			params = c[1].(map[string]interface{})
+	}
 
 	// if a handler for this command exists, run it
 	conn.service.handleEvent(command, params)
