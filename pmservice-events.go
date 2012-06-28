@@ -1,4 +1,5 @@
 package libclient3
+
 var PMEvents map[string]func(*PMService, map[string]interface{})
 
 func CreatePMEvents() {

@@ -83,16 +83,16 @@ func (conn *Connection) handleEvent(data []byte) bool {
 
 	var (
 		command string
-		params map[string]interface{}
+		params  map[string]interface{}
 	)
 
 	switch c[0].(type) {
-		case string:
-			command = c[0].(string)
+	case string:
+		command = c[0].(string)
 	}
 	switch c[1].(type) {
-		case map[string]interface{}:
-			params = c[1].(map[string]interface{})
+	case map[string]interface{}:
+		params = c[1].(map[string]interface{})
 	}
 
 	// if a handler for this command exists, run it
